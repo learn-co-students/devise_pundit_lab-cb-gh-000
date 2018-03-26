@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+
+  <% @users.each do |user| %>
+      <p><%= user.email %></p>
+  <% end %>
+<% end %>
