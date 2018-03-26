@@ -18,16 +18,22 @@ class NotesController < ApplicationController
   
   def edit
     @note = Note.find(params[:id])
+    binding.pry
+    # authorize @note
   end
   
   def show
   end
 
   def index
-    @notes = Note.none
-    if current_user
-      @notes = current_user.readable
-    end
+    @notes = policy_scope(Note)
+  end
+
+  def destroy
+    @note = Note.find(params[:id])
+    @note.destory
+    redirect_to(request.referrer || root_path)
+    authorize @note
   end
 
   private
